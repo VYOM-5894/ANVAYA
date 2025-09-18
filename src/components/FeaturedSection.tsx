@@ -7,55 +7,55 @@ const FeaturedSection = () => {
   // Sample featured alumni data
   const featuredAlumni = [
     {
-      name: "Sarah Chen",
+      name: "Priya Sharma",
       graduationYear: "2015",
-      degree: "Computer Science",
-      company: "Meta",
+      degree: "Computer Science & Engineering",
+      company: "Google India",
       position: "Senior Software Engineer",
-      location: "San Francisco, CA",
-      bio: "Leading AI initiatives in social media platforms. Passionate about mentoring students in tech careers and diversity in engineering."
+      location: "Bangalore, India",
+      bio: "Leading AI initiatives in search algorithms. Passionate about mentoring students in tech careers and promoting women in engineering at KIIT."
     },
     {
-      name: "Michael Rodriguez",
+      name: "Rahul Patel",
       graduationYear: "2012", 
-      degree: "Business Administration",
-      company: "Goldman Sachs",
-      position: "Investment Director",
-      location: "New York, NY",
-      bio: "Specializing in sustainable finance and ESG investments. Active alumni volunteer and career mentor for business students."
+      degree: "Electronics & Telecommunications",
+      company: "Tata Consultancy Services",
+      position: "Technical Architect",
+      location: "Mumbai, India",
+      bio: "Specializing in IoT solutions and digital transformation. Active KIIT alumni volunteer and career mentor for engineering students."
     },
     {
-      name: "Dr. Emily Watson",
+      name: "Dr. Anjali Mishra",
       graduationYear: "2008",
-      degree: "Biomedical Engineering", 
-      company: "Johns Hopkins",
-      position: "Research Director",
-      location: "Baltimore, MD",
-      bio: "Pioneering medical device innovations. Leading research in minimally invasive surgical technologies and medical AI applications."
+      degree: "Biotechnology", 
+      company: "Indian Institute of Science",
+      position: "Research Scientist",
+      location: "Bangalore, India",
+      bio: "Pioneering research in genetic engineering and biomedical applications. Leading projects in personalized medicine and drug discovery."
     }
   ];
 
   // Sample upcoming events
   const upcomingEvents = [
     {
-      title: "Annual Tech Alumni Networking Night",
-      date: "2024-10-15",
-      time: "6:00 PM - 9:00 PM",
-      location: "Innovation Hub, Downtown",
-      attendees: 156,
-      maxAttendees: 200,
-      description: "Connect with fellow tech professionals, share insights, and explore collaboration opportunities in an intimate networking environment.",
+      title: "KIIT Annual Tech Alumni Reunion",
+      date: "2024-12-15",
+      time: "4:00 PM - 8:00 PM",
+      location: "KIIT Campus, Bhubaneswar",
+      attendees: 256,
+      maxAttendees: 300,
+      description: "Connect with fellow KIIT tech graduates, share industry insights, and explore collaboration opportunities in our beautiful campus setting.",
       eventType: "networking" as const,
       featured: true
     },
     {
-      title: "Career Mentorship Speed Connect",
-      date: "2024-10-22", 
-      time: "7:00 PM - 8:30 PM",
-      location: "Virtual Event",
-      attendees: 89,
-      maxAttendees: 150,
-      description: "Fast-paced mentorship connections between alumni and current students. Perfect for career guidance and professional development.",
+      title: "Career Guidance Workshop",
+      date: "2024-11-08", 
+      time: "2:00 PM - 5:00 PM",
+      location: "KIIT Student Activity Center",
+      attendees: 124,
+      maxAttendees: 200,
+      description: "Alumni sharing career experiences with current students. Interactive sessions covering industry trends, skill development, and job market insights.",
       eventType: "professional" as const
     }
   ];

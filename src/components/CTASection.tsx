@@ -68,8 +68,8 @@ const CTASection = () => {
           
           <p className="text-sm opacity-75">
             Questions about giving? Contact our alumni relations team at{" "}
-            <a href="mailto:giving@university.edu" className="underline text-accent hover:text-accent-hover">
-              giving@university.edu
+            <a href="mailto:giving@kiit.ac.in" className="underline text-accent hover:text-accent-hover">
+              giving@kiit.ac.in
             </a>
           </p>
         </div>

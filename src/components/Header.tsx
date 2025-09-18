@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, User, Users, Calendar, Heart } from "lucide-react";
 
@@ -18,21 +19,21 @@ const Header = () => {
           {/* Logo */}
           <div className="flex items-center">
             <h1 className="text-xl font-display font-bold text-primary">
-              Alumni Connect
+              KIIT Alumni Connect
             </h1>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navigationItems.map((item) => (
-              <a
+              <Link
                 key={item.label}
-                href={item.href}
+                to={item.href}
                 className="flex items-center space-x-1 text-muted-foreground hover:text-foreground transition-colors duration-200"
               >
                 <item.icon className="h-4 w-4" />
                 <span className="font-medium">{item.label}</span>
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -64,15 +65,15 @@ const Header = () => {
         {isMenuOpen && (
           <div className="md:hidden py-4 space-y-2 border-t border-border">
             {navigationItems.map((item) => (
-              <a
+              <Link
                 key={item.label}
-                href={item.href}
+                to={item.href}
                 className="flex items-center space-x-2 px-3 py-2 text-muted-foreground hover:text-foreground transition-colors duration-200"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <item.icon className="h-4 w-4" />
                 <span>{item.label}</span>
-              </a>
+              </Link>
             ))}
             <div className="flex flex-col space-y-2 pt-4 border-t border-border">
               <Button variant="ghost" className="justify-start">

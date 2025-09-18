@@ -1,19 +1,20 @@
 import { Heart, Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const quickLinks = [
     { label: "Alumni Directory", href: "/directory" },
     { label: "Events Calendar", href: "/events" },
-    { label: "Career Services", href: "/careers" },
-    { label: "Mentorship Program", href: "/mentorship" },
+    { label: "Career Services", href: "#" },
+    { label: "Mentorship Program", href: "#" },
   ];
 
   const supportLinks = [
     { label: "Give Back", href: "/donate" },
-    { label: "Volunteer", href: "/volunteer" },
-    { label: "Contact Us", href: "/contact" },
-    { label: "Help Center", href: "/help" },
+    { label: "Volunteer", href: "#" },
+    { label: "Contact Us", href: "#" },
+    { label: "Help Center", href: "#" },
   ];
 
   const socialLinks = [
@@ -31,24 +32,24 @@ const Footer = () => {
           
           {/* Brand Section */}
           <div className="lg:col-span-1">
-            <h3 className="text-2xl font-display font-bold mb-4">Alumni Connect</h3>
+            <h3 className="text-2xl font-display font-bold mb-4">KIIT Alumni Connect</h3>
             <p className="text-primary-foreground/80 mb-6 leading-relaxed">
-              Strengthening lifelong connections and empowering our global community of graduates.
+              Strengthening lifelong connections and empowering our global community of KIIT graduates.
             </p>
             
             {/* Contact Info */}
             <div className="space-y-3 text-sm">
               <div className="flex items-center">
                 <Mail className="h-4 w-4 mr-3 text-accent" />
-                <span>alumni@university.edu</span>
+                <span>alumni@kiit.ac.in</span>
               </div>
               <div className="flex items-center">
                 <Phone className="h-4 w-4 mr-3 text-accent" />
-                <span>(555) 123-4567</span>
+                <span>+91 674 272 7777</span>
               </div>
               <div className="flex items-center">
                 <MapPin className="h-4 w-4 mr-3 text-accent" />
-                <span>123 University Ave, College Town</span>
+                <span>KIIT Campus, Patia, Bhubaneswar, Odisha 751024</span>
               </div>
             </div>
           </div>
@@ -59,12 +60,21 @@ const Footer = () => {
             <ul className="space-y-2">
               {quickLinks.map((link, index) => (
                 <li key={index}>
-                  <a 
-                    href={link.href}
-                    className="text-primary-foreground/80 hover:text-accent transition-colors duration-200 text-sm"
-                  >
-                    {link.label}
-                  </a>
+                  {link.href.startsWith('/') ? (
+                    <Link
+                      to={link.href}
+                      className="text-primary-foreground/80 hover:text-accent transition-colors duration-200 text-sm"
+                    >
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a 
+                      href={link.href}
+                      className="text-primary-foreground/80 hover:text-accent transition-colors duration-200 text-sm"
+                    >
+                      {link.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
@@ -76,12 +86,21 @@ const Footer = () => {
             <ul className="space-y-2">
               {supportLinks.map((link, index) => (
                 <li key={index}>
-                  <a 
-                    href={link.href}
-                    className="text-primary-foreground/80 hover:text-accent transition-colors duration-200 text-sm"
-                  >
-                    {link.label}
-                  </a>
+                  {link.href.startsWith('/') ? (
+                    <Link
+                      to={link.href}
+                      className="text-primary-foreground/80 hover:text-accent transition-colors duration-200 text-sm"
+                    >
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a 
+                      href={link.href}
+                      className="text-primary-foreground/80 hover:text-accent transition-colors duration-200 text-sm"
+                    >
+                      {link.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
@@ -118,13 +137,13 @@ const Footer = () => {
         <div className="py-8 border-t border-primary-foreground/20">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-sm text-primary-foreground/80">
-              © 2024 Alumni Connect. All rights reserved.
+              © 2024 KIIT Alumni Connect. All rights reserved.
             </div>
             
             <div className="flex items-center text-sm text-primary-foreground/80">
               <span>Made with</span>
               <Heart className="h-4 w-4 mx-1 text-accent" />
-              <span>for our alumni community</span>
+              <span>for our KIIT alumni community</span>
             </div>
             
             <div className="flex space-x-6 text-sm">
