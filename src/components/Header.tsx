@@ -18,7 +18,7 @@ const Header = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <h1 className="text-xl font-display font-bold text-primary">
+            <h1 className="text-2xl md:text-3xl font-display font-extrabold tracking-wide text-primary">
               ANVAYA
             </h1>
           </div>
@@ -46,9 +46,7 @@ const Header = () => {
               </Button>
             </Link>
             <Link to="/register">
-              <Button className="professional-button">
-                Register
-              </Button>
+              <Button className="professional-button">Register</Button>
             </Link>
           </div>
 
@@ -100,3 +98,4 @@ const Header = () => {
 };
 
 export default Header;
+
