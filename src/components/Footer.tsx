@@ -19,7 +19,7 @@ const Footer = () => {
 
   const socialLinks = [
     { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Twitter, href: "#", label: "Twitter" },
+    { icon: X, href: "#", label: "X" },
     { icon: Linkedin, href: "#", label: "LinkedIn" },
     { icon: Instagram, href: "#", label: "Instagram" },
   ];
@@ -137,7 +137,7 @@ const Footer = () => {
         <div className="py-8 border-t border-primary-foreground/20">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-sm text-primary-foreground/80">
-              © 2024 KIIT Alumni Connect. All rights reserved.
+              © 2025 KIIT Alumni Connect. All rights reserved.
             </div>
             
             <div className="flex items-center text-sm text-primary-foreground/80">
