@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { MessageCircle, X, Send, Bot, User } from "lucide-react";
+import { MessageCircle, X, Send, Bot, User, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -37,6 +37,18 @@ const ChatBot = () => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
     localStorage.setItem("chatMessages", JSON.stringify(messages));
   }, [messages]);
+
+  // Reset chat function
+  const resetChat = () => {
+    const initialMessage: Message = {
+      id: 1,
+      text: "👋 Hello! I'm your KIIT Alumni Connect assistant. I can help you navigate the website, find alumni, learn about events, or connect with mentors. How can I assist you today?",
+      sender: "bot",
+      timestamp: new Date(),
+    };
+    setMessages([initialMessage]);
+    localStorage.removeItem("chatMessages");
+  };
 
   const handleSendMessage = () => {
     if (!inputMessage.trim()) return;
@@ -146,17 +158,33 @@ const ChatBot = () => {
                 <Bot className="h-4 w-4 mr-2" />
                 KIIT Alumni Assistant
               </CardTitle>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setIsOpen(false)}
-                className="h-6 w-6 p-0 hover:bg-primary-hover"
-              >
-                <X className="h-4 w-4" />
-              </Button>
+              <div className="flex items-center gap-2">
+                {/* Clear Chat Button */}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={resetChat}
+                  className="h-6 w-6 p-0 hover:bg-primary-hover"
+                  title="Clear Chat"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+                {/* Close Chat Button */}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => {
+                    setIsOpen(false);
+                    resetChat(); // Clear when closing
+                  }}
+                  className="h-6 w-6 p-0 hover:bg-primary-hover"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
             </CardHeader>
 
-            {/* Messages Area with native scroll */}
+            {/* Messages Area */}
             <div className="flex-1 px-4 py-2 overflow-y-auto">
               <div className="space-y-4">
                 {messages.map((message) => (
