@@ -1,10 +1,9 @@
-import { Toaster } from "@/components/ui/toaster";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Header from "./components/Header"; // ✅ Make sure Header is included
+import Header from "./components/Header";
 import Index from "./pages/Index";
 import Directory from "./pages/Directory";
 import Events from "./pages/Events";
@@ -20,10 +19,9 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
+      {/* ✅ Only one toaster now */}
       <SonnerToaster />
       <BrowserRouter>
-        {/* ✅ Persistent Header */}
         <Header />
         <Routes>
           <Route path="/" element={<Index />} />
@@ -34,7 +32,6 @@ const App = () => (
           <Route path="/register" element={<Register />} />
           <Route path="/admin" element={<AdminPortal />} />
           <Route path="/recruiter" element={<RecruiterPortal />} />
-          {/* Catch-all for unknown routes */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
@@ -43,4 +40,3 @@ const App = () => (
 );
 
 export default App;
-
