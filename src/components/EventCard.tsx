@@ -4,7 +4,7 @@ import AlumniCard from "./AlumniCard";
 import EventCard from "./EventCard";
 
 const FeaturedSection = () => {
-  // Sample featured alumni data
+  // ✅ Featured Alumni Data
   const featuredAlumni = [
     {
       name: "Priya Sharma",
@@ -13,29 +13,29 @@ const FeaturedSection = () => {
       company: "Google India",
       position: "Senior Software Engineer",
       location: "Bangalore, India",
-      bio: "Leading AI initiatives in search algorithms. Passionate about mentoring students in tech careers and promoting women in engineering at KIIT."
+      bio: "Leading AI initiatives in search algorithms. Passionate about mentoring students in tech careers and promoting women in engineering at KIIT.",
     },
     {
       name: "Rahul Patel",
-      graduationYear: "2012", 
+      graduationYear: "2012",
       degree: "Electronics & Telecommunications",
       company: "Tata Consultancy Services",
       position: "Technical Architect",
       location: "Mumbai, India",
-      bio: "Specializing in IoT solutions and digital transformation. Active KIIT alumni volunteer and career mentor for engineering students."
+      bio: "Specializing in IoT solutions and digital transformation. Active KIIT alumni volunteer and career mentor for engineering students.",
     },
     {
       name: "Dr. Anjali Mishra",
       graduationYear: "2008",
-      degree: "Biotechnology", 
+      degree: "Biotechnology",
       company: "Indian Institute of Science",
       position: "Research Scientist",
       location: "Bangalore, India",
-      bio: "Pioneering research in genetic engineering and biomedical applications. Leading projects in personalized medicine and drug discovery."
-    }
+      bio: "Pioneering research in genetic engineering and biomedical applications. Leading projects in personalized medicine and drug discovery.",
+    },
   ];
 
-  // ✅ Updated upcoming events
+  // ✅ Upcoming Events Data
   const upcomingEvents = [
     {
       title: "KIIT Annual Tech Alumni Reunion",
@@ -44,19 +44,21 @@ const FeaturedSection = () => {
       location: "KIIT Campus, Bhubaneswar",
       attendees: 256,
       maxAttendees: 300,
-      description: "Connect with fellow KIIT tech graduates, share industry insights, and explore collaboration opportunities.",
-      eventType: "networking" as const,
-      featured: true
+      description:
+        "Connect with fellow KIIT tech graduates, share industry insights, and explore collaboration opportunities.",
+      eventType: "networking",
+      featured: true,
     },
     {
       title: "Career Guidance Workshop",
-      date: "2025-11-08", 
+      date: "2025-11-08",
       time: "2:00 PM - 5:00 PM",
       location: "KIIT Student Activity Center",
       attendees: 124,
       maxAttendees: 200,
-      description: "Alumni sharing career experiences with current students.",
-      eventType: "professional" as const
+      description:
+        "Alumni sharing career experiences with current students.",
+      eventType: "professional",
     },
     {
       title: "Virtual Alumni Networking Meetup",
@@ -65,9 +67,10 @@ const FeaturedSection = () => {
       location: "Online (Zoom)",
       attendees: 180,
       maxAttendees: 500,
-      description: "Join alumni worldwide for an online networking session, interactive Q&A, and panel discussions.",
-      eventType: "social" as const,
-      featured: false
+      description:
+        "Join alumni worldwide for an online networking session, interactive Q&A, and panel discussions.",
+      eventType: "social",
+      featured: false,
     },
     {
       title: "KIIT Campus Cultural Fest",
@@ -76,16 +79,16 @@ const FeaturedSection = () => {
       location: "KIIT Campus 25, Bhubaneswar",
       attendees: 400,
       maxAttendees: 1000,
-      description: "A celebration of art, culture, and tradition with alumni and students showcasing talent.",
-      eventType: "reunion" as const,
-      featured: false
-    }
+      description:
+        "A celebration of art, culture, and tradition with alumni and students showcasing talent.",
+      eventType: "reunion",
+      featured: false,
+    },
   ];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
-      
-      {/* Featured Alumni Section */}
+      {/* ✅ Featured Alumni Section */}
       <section>
         <div className="flex items-center justify-between mb-8">
           <div>
@@ -109,7 +112,7 @@ const FeaturedSection = () => {
         </div>
       </section>
 
-      {/* Upcoming Events Section */}
+      {/* ✅ Upcoming Events Section */}
       <section>
         <div className="flex items-center justify-between mb-8">
           <div>
@@ -133,7 +136,7 @@ const FeaturedSection = () => {
         </div>
       </section>
 
-      {/* Impact Stats */}
+      {/* ✅ Impact Stats */}
       <section className="bg-muted/30 rounded-2xl p-8 lg:p-12">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-display font-bold text-foreground mb-4">
@@ -152,7 +155,7 @@ const FeaturedSection = () => {
             <div className="text-3xl font-bold text-foreground mb-2">$2.3M</div>
             <div className="text-muted-foreground">Donated This Year</div>
           </div>
-          
+
           <div className="text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
               <Users className="h-8 w-8 text-primary" />
@@ -160,7 +163,7 @@ const FeaturedSection = () => {
             <div className="text-3xl font-bold text-foreground mb-2">1,200+</div>
             <div className="text-muted-foreground">Students Mentored</div>
           </div>
-          
+
           <div className="text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-success/10 rounded-full mb-4">
               <Star className="h-8 w-8 text-success" />
@@ -175,3 +178,4 @@ const FeaturedSection = () => {
 };
 
 export default FeaturedSection;
+
