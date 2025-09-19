@@ -2,11 +2,13 @@ import { ArrowRight, Star, TrendingUp, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AlumniCard from "./AlumniCard";
 import EventCard from "./EventCard";
+import { Link } from "react-router-dom";
 
 const FeaturedSection = () => {
-  // Sample featured alumni data
+  // Extended alumni data (10 total)
   const featuredAlumni = [
     {
+      id: 1,
       name: "Priya Sharma",
       graduationYear: "2015",
       degree: "Computer Science & Engineering",
@@ -16,23 +18,95 @@ const FeaturedSection = () => {
       bio: "Leading AI initiatives in search algorithms. Passionate about mentoring students in tech careers and promoting women in engineering at KIIT."
     },
     {
+      id: 2,
       name: "Rahul Patel",
-      graduationYear: "2012", 
+      graduationYear: "2012",
       degree: "Electronics & Telecommunications",
-      company: "Tata Consultancy Services",
+      company: "TCS",
       position: "Technical Architect",
       location: "Mumbai, India",
-      bio: "Specializing in IoT solutions and digital transformation. Active KIIT alumni volunteer and career mentor for engineering students."
+      bio: "Specializing in IoT solutions and digital transformation. Active KIIT alumni volunteer and career mentor."
     },
     {
+      id: 3,
       name: "Dr. Anjali Mishra",
       graduationYear: "2008",
-      degree: "Biotechnology", 
+      degree: "Biotechnology",
       company: "Indian Institute of Science",
       position: "Research Scientist",
       location: "Bangalore, India",
-      bio: "Pioneering research in genetic engineering and biomedical applications. Leading projects in personalized medicine and drug discovery."
-    }
+      bio: "Pioneering research in genetic engineering and biomedical applications."
+    },
+    {
+      id: 4,
+      name: "Arjun Mehta",
+      graduationYear: "2016",
+      degree: "Information Technology",
+      company: "Microsoft",
+      position: "Cloud Solutions Engineer",
+      location: "Hyderabad, India",
+      bio: "Focused on Azure cloud adoption strategies and enterprise modernization."
+    },
+    {
+      id: 5,
+      name: "Sneha Reddy",
+      graduationYear: "2014",
+      degree: "Mechanical Engineering",
+      company: "Mahindra & Mahindra",
+      position: "Product Design Engineer",
+      location: "Pune, India",
+      bio: "Working on next-gen EV design and sustainable mobility solutions."
+    },
+    {
+      id: 6,
+      name: "Karan Verma",
+      graduationYear: "2017",
+      degree: "Civil Engineering",
+      company: "Larsen & Toubro",
+      position: "Project Manager",
+      location: "Delhi, India",
+      bio: "Managing large-scale infrastructure projects across India."
+    },
+    {
+      id: 7,
+      name: "Ritika Gupta",
+      graduationYear: "2013",
+      degree: "Electronics & Communication",
+      company: "Qualcomm",
+      position: "Chip Design Engineer",
+      location: "Noida, India",
+      bio: "Specialist in semiconductor design and wireless communication systems."
+    },
+    {
+      id: 8,
+      name: "Manish Kumar",
+      graduationYear: "2011",
+      degree: "Electrical Engineering",
+      company: "Siemens",
+      position: "Automation Specialist",
+      location: "Chennai, India",
+      bio: "Expert in industrial automation and renewable energy systems."
+    },
+    {
+      id: 9,
+      name: "Neha Agarwal",
+      graduationYear: "2009",
+      degree: "MBA",
+      company: "Infosys",
+      position: "HR Director",
+      location: "Bangalore, India",
+      bio: "Driving people strategy, leadership programs, and talent development."
+    },
+    {
+      id: 10,
+      name: "Vivek Raj",
+      graduationYear: "2018",
+      degree: "Computer Science & Engineering",
+      company: "Flipkart",
+      position: "Data Scientist",
+      location: "Bangalore, India",
+      bio: "Working on predictive analytics and customer behavior insights."
+    },
   ];
 
   // Sample upcoming events
@@ -44,18 +118,18 @@ const FeaturedSection = () => {
       location: "KIIT Campus, Bhubaneswar",
       attendees: 256,
       maxAttendees: 300,
-      description: "Connect with fellow KIIT tech graduates, share industry insights, and explore collaboration opportunities in our beautiful campus setting.",
+      description: "Connect with fellow KIIT tech graduates, share industry insights, and explore collaboration opportunities.",
       eventType: "networking" as const,
       featured: true
     },
     {
       title: "Career Guidance Workshop",
-      date: "2024-11-08", 
+      date: "2024-11-08",
       time: "2:00 PM - 5:00 PM",
       location: "KIIT Student Activity Center",
       attendees: 124,
       maxAttendees: 200,
-      description: "Alumni sharing career experiences with current students. Interactive sessions covering industry trends, skill development, and job market insights.",
+      description: "Alumni sharing career experiences with current students.",
       eventType: "professional" as const
     }
   ];
@@ -74,15 +148,19 @@ const FeaturedSection = () => {
               Discover inspiring stories from our accomplished graduates
             </p>
           </div>
-          <Button variant="ghost" className="text-primary hover:text-primary-hover">
-            View All Profiles
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
+          <Link to="/directory">
+            <Button variant="ghost" className="text-primary hover:text-primary-hover">
+              View All Profiles
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {featuredAlumni.map((alumni, index) => (
-            <AlumniCard key={index} {...alumni} />
+          {featuredAlumni.map((alumni) => (
+            <Link key={alumni.id} to={`/alumni/${alumni.id}`}>
+              <AlumniCard {...alumni} />
+            </Link>
           ))}
         </div>
       </section>
@@ -98,10 +176,12 @@ const FeaturedSection = () => {
               Join us for networking, professional development, and community building
             </p>
           </div>
-          <Button variant="ghost" className="text-primary hover:text-primary-hover">
-            View Event Calendar
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
+          <Link to="/events">
+            <Button variant="ghost" className="text-primary hover:text-primary-hover">
+              View Event Calendar
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
