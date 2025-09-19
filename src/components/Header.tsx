@@ -39,13 +39,17 @@ const Header = () => {
 
           {/* Desktop Auth Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
-              <User className="h-4 w-4 mr-2" />
-              Sign In
-            </Button>
-            <Button className="professional-button">
-              Register
-            </Button>
+            <Link to="/signin">
+              <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
+                <User className="h-4 w-4 mr-2" />
+                Sign In
+              </Button>
+            </Link>
+            <Link to="/register">
+              <Button className="professional-button">
+                Register
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -76,13 +80,17 @@ const Header = () => {
               </Link>
             ))}
             <div className="flex flex-col space-y-2 pt-4 border-t border-border">
-              <Button variant="ghost" className="justify-start">
-                <User className="h-4 w-4 mr-2" />
-                Sign In
-              </Button>
-              <Button className="professional-button justify-start">
-                Register
-              </Button>
+              <Link to="/signin" onClick={() => setIsMenuOpen(false)}>
+                <Button variant="ghost" className="justify-start w-full">
+                  <User className="h-4 w-4 mr-2" />
+                  Sign In
+                </Button>
+              </Link>
+              <Link to="/register" onClick={() => setIsMenuOpen(false)}>
+                <Button className="professional-button justify-start w-full">
+                  Register
+                </Button>
+              </Link>
             </div>
           </div>
         )}
