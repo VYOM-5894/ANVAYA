@@ -1,181 +1,117 @@
-import { ArrowRight, Star, TrendingUp, Users } from "lucide-react";
+import { Calendar, MapPin, Users, Clock, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import AlumniCard from "./AlumniCard";
-import EventCard from "./EventCard";
+import { Badge } from "@/components/ui/badge";
 
-const FeaturedSection = () => {
-  // ✅ Featured Alumni Data
-  const featuredAlumni = [
-    {
-      name: "Priya Sharma",
-      graduationYear: "2015",
-      degree: "Computer Science & Engineering",
-      company: "Google India",
-      position: "Senior Software Engineer",
-      location: "Bangalore, India",
-      bio: "Leading AI initiatives in search algorithms. Passionate about mentoring students in tech careers and promoting women in engineering at KIIT.",
-    },
-    {
-      name: "Rahul Patel",
-      graduationYear: "2012",
-      degree: "Electronics & Telecommunications",
-      company: "Tata Consultancy Services",
-      position: "Technical Architect",
-      location: "Mumbai, India",
-      bio: "Specializing in IoT solutions and digital transformation. Active KIIT alumni volunteer and career mentor for engineering students.",
-    },
-    {
-      name: "Dr. Anjali Mishra",
-      graduationYear: "2008",
-      degree: "Biotechnology",
-      company: "Indian Institute of Science",
-      position: "Research Scientist",
-      location: "Bangalore, India",
-      bio: "Pioneering research in genetic engineering and biomedical applications. Leading projects in personalized medicine and drug discovery.",
-    },
-  ];
+interface EventCardProps {
+  title: string;
+  date: string;
+  time: string;
+  location: string;
+  attendees: number;
+  maxAttendees?: number;
+  description: string;
+  image?: string;
+  eventType: "networking" | "professional" | "social" | "reunion";
+  featured?: boolean;
+}
 
-  // ✅ Upcoming Events Data
-  const upcomingEvents = [
-    {
-      title: "KIIT Annual Tech Alumni Reunion",
-      date: "2025-11-20",
-      time: "4:00 PM - 8:00 PM",
-      location: "KIIT Campus, Bhubaneswar",
-      attendees: 256,
-      maxAttendees: 300,
-      description:
-        "Connect with fellow KIIT tech graduates, share industry insights, and explore collaboration opportunities.",
-      eventType: "networking",
-      featured: true,
-    },
-    {
-      title: "Career Guidance Workshop",
-      date: "2025-11-08",
-      time: "2:00 PM - 5:00 PM",
-      location: "KIIT Student Activity Center",
-      attendees: 124,
-      maxAttendees: 200,
-      description:
-        "Alumni sharing career experiences with current students.",
-      eventType: "professional",
-    },
-    {
-      title: "Virtual Alumni Networking Meetup",
-      date: "2025-10-12",
-      time: "6:00 PM - 8:00 PM",
-      location: "Online (Zoom)",
-      attendees: 180,
-      maxAttendees: 500,
-      description:
-        "Join alumni worldwide for an online networking session, interactive Q&A, and panel discussions.",
-      eventType: "social",
-      featured: false,
-    },
-    {
-      title: "KIIT Campus Cultural Fest",
-      date: "2025-10-22",
-      time: "10:00 AM - 6:00 PM",
-      location: "KIIT Campus 25, Bhubaneswar",
-      attendees: 400,
-      maxAttendees: 1000,
-      description:
-        "A celebration of art, culture, and tradition with alumni and students showcasing talent.",
-      eventType: "reunion",
-      featured: false,
-    },
-  ];
+const EventCard = ({
+  title,
+  date,
+  time,
+  location,
+  attendees,
+  maxAttendees,
+  description,
+  image,
+  eventType,
+  featured = false,
+}: EventCardProps) => {
+  const eventTypeColors = {
+    networking: "bg-blue-100 text-blue-800 border-blue-200",
+    professional: "bg-green-100 text-green-800 border-green-200",
+    social: "bg-purple-100 text-purple-800 border-purple-200",
+    reunion: "bg-accent/10 text-accent border-accent/20",
+  };
+
+  const formatDate = (dateStr: string) => {
+    return new Date(dateStr).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+    });
+  };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
-      {/* ✅ Featured Alumni Section */}
-      <section>
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h2 className="text-3xl font-display font-bold text-foreground mb-2">
-              Featured Alumni
-            </h2>
-            <p className="text-muted-foreground text-lg">
-              Discover inspiring stories from our accomplished graduates
-            </p>
+    <div
+      className={`alumni-card border rounded-lg p-6 shadow-sm hover:shadow-md transition ${featured ? "ring-2 ring-accent/20" : ""}`}
+    >
+      {image && (
+        <div className="relative mb-4 -m-6 mt-0">
+          <img
+            src={image}
+            alt={title}
+            className="w-full h-48 object-cover rounded-t-lg"
+          />
+          {featured && (
+            <Badge className="absolute top-3 left-3 bg-accent text-accent-foreground">
+              Featured Event
+            </Badge>
+          )}
+        </div>
+      )}
+
+      <div className="space-y-4">
+        <div className="flex items-start justify-between">
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-2">
+              <Badge className={eventTypeColors[eventType]} variant="outline">
+                {eventType.charAt(0).toUpperCase() + eventType.slice(1)}
+              </Badge>
+            </div>
+            <h3 className="text-lg font-semibold text-foreground mb-2 line-clamp-2">
+              {title}
+            </h3>
           </div>
-          <Button variant="ghost" className="text-primary hover:text-primary-hover">
-            View All Profiles
-            <ArrowRight className="ml-2 h-4 w-4" />
+        </div>
+
+        <div className="space-y-2 text-sm text-muted-foreground">
+          <div className="flex items-center">
+            <Calendar className="h-4 w-4 mr-2 flex-shrink-0 text-primary" />
+            <span>{formatDate(date)}</span>
+          </div>
+          <div className="flex items-center">
+            <Clock className="h-4 w-4 mr-2 flex-shrink-0 text-primary" />
+            <span>{time}</span>
+          </div>
+          <div className="flex items-center">
+            <MapPin className="h-4 w-4 mr-2 flex-shrink-0 text-primary" />
+            <span className="truncate">{location}</span>
+          </div>
+          <div className="flex items-center">
+            <Users className="h-4 w-4 mr-2 flex-shrink-0 text-primary" />
+            <span>
+              {attendees} attending {maxAttendees && ` / ${maxAttendees} max`}
+            </span>
+          </div>
+        </div>
+
+        <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
+          {description}
+        </p>
+
+        <div className="flex items-center justify-between pt-4 border-t border-border">
+          <Button variant="ghost" size="sm" className="text-primary hover:text-primary-hover">
+            Learn More
+          </Button>
+          <Button size="sm" className="bg-primary hover:bg-primary-hover text-primary-foreground">
+            Register <ArrowRight className="ml-1 h-3 w-3" />
           </Button>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {featuredAlumni.map((alumni, index) => (
-            <AlumniCard key={index} {...alumni} />
-          ))}
-        </div>
-      </section>
-
-      {/* ✅ Upcoming Events Section */}
-      <section>
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h2 className="text-3xl font-display font-bold text-foreground mb-2">
-              Upcoming Events
-            </h2>
-            <p className="text-muted-foreground text-lg">
-              Join us for networking, professional development, and community building
-            </p>
-          </div>
-          <Button variant="ghost" className="text-primary hover:text-primary-hover">
-            View Event Calendar
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {upcomingEvents.map((event, index) => (
-            <EventCard key={index} {...event} />
-          ))}
-        </div>
-      </section>
-
-      {/* ✅ Impact Stats */}
-      <section className="bg-muted/30 rounded-2xl p-8 lg:p-12">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-display font-bold text-foreground mb-4">
-            Our Impact Together
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            See how our alumni community continues to make a difference in the world
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-accent/10 rounded-full mb-4">
-              <TrendingUp className="h-8 w-8 text-accent" />
-            </div>
-            <div className="text-3xl font-bold text-foreground mb-2">$2.3M</div>
-            <div className="text-muted-foreground">Donated This Year</div>
-          </div>
-
-          <div className="text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
-              <Users className="h-8 w-8 text-primary" />
-            </div>
-            <div className="text-3xl font-bold text-foreground mb-2">1,200+</div>
-            <div className="text-muted-foreground">Students Mentored</div>
-          </div>
-
-          <div className="text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-success/10 rounded-full mb-4">
-              <Star className="h-8 w-8 text-success" />
-            </div>
-            <div className="text-3xl font-bold text-foreground mb-2">500+</div>
-            <div className="text-muted-foreground">Career Connections Made</div>
-          </div>
-        </div>
-      </section>
+      </div>
     </div>
   );
 };
 
-export default FeaturedSection;
+export default EventCard;
+
 
