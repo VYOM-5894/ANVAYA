@@ -3,7 +3,6 @@ import { MessageCircle, X, Send, Bot, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface Message {
   id: number;
@@ -15,7 +14,6 @@ interface Message {
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>(() => {
-    // restore chat from localStorage if available
     const saved = localStorage.getItem("chatMessages");
     return saved
       ? JSON.parse(saved, (key, value) =>
@@ -34,7 +32,7 @@ const ChatBot = () => {
   const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
-  // auto-scroll to bottom when messages update
+  // Auto-scroll + persist chat
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
     localStorage.setItem("chatMessages", JSON.stringify(messages));
@@ -53,7 +51,7 @@ const ChatBot = () => {
     setMessages((prev) => [...prev, userMessage]);
     setInputMessage("");
 
-    // Bot typing effect
+    // Bot typing
     setIsTyping(true);
     setTimeout(() => {
       const botResponse = getBotResponse(inputMessage);
@@ -72,9 +70,9 @@ const ChatBot = () => {
     const lowerInput = input.toLowerCase();
 
     if (lowerInput.includes("alumni") || lowerInput.includes("directory")) {
-      return "🔎 You can explore our alumni directory to find fellow KIIT graduates by year, department, or company. Visit the Directory page!";
+      return "🔎 You can explore our alumni directory to find fellow KIIT graduates by year, department, or company.";
     } else if (lowerInput.includes("event") || lowerInput.includes("meeting")) {
-      return "📅 Check out our Events page to see alumni gatherings, networking events, and workshops. You can register and connect with others.";
+      return "📅 Check out our Events page to see alumni gatherings, networking events, and workshops.";
     } else if (
       lowerInput.includes("mentor") ||
       lowerInput.includes("guidance") ||
@@ -98,13 +96,13 @@ const ChatBot = () => {
       lowerInput.includes("recruitment") ||
       lowerInput.includes("hiring")
     ) {
-      return "💼 Our platform includes job postings shared by alumni and companies. Check the Jobs/Events section or network directly with alumni!";
+      return "💼 Our platform includes job postings shared by alumni and companies. Check the Jobs/Events section!";
     } else if (
       lowerInput.includes("help") ||
       lowerInput.includes("how") ||
       lowerInput.includes("navigate")
     ) {
-      return "ℹ️ I can guide you! Key sections:\n- Directory (find alumni)\n- Events (networking & workshops)\n- Give Back (donations)\n- Profile (your info).\nWhich one would you like?";
+      return "ℹ️ I can guide you! Key sections:\n- Directory\n- Events\n- Give Back\n- Profile.\nWhich one would you like?";
     } else {
       return "🤝 I'm here to help! Ask me about alumni, events, mentorship, donations, or jobs.";
     }
@@ -142,6 +140,7 @@ const ChatBot = () => {
       {isOpen && (
         <div className="fixed bottom-6 right-6 z-50 w-80 h-[28rem]">
           <Card className="h-full flex flex-col shadow-2xl border-2">
+            {/* Header */}
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 bg-primary text-primary-foreground rounded-t-lg">
               <CardTitle className="text-sm font-medium flex items-center">
                 <Bot className="h-4 w-4 mr-2" />
@@ -157,102 +156,101 @@ const ChatBot = () => {
               </Button>
             </CardHeader>
 
-            <CardContent className="flex-1 flex flex-col p-0">
-              <ScrollArea className="flex-1 p-4">
-                <div className="space-y-4">
-                  {messages.map((message) => (
+            {/* Messages Area with native scroll */}
+            <div className="flex-1 px-4 py-2 overflow-y-auto">
+              <div className="space-y-4">
+                {messages.map((message) => (
+                  <div
+                    key={message.id}
+                    className={`flex ${
+                      message.sender === "user"
+                        ? "justify-end"
+                        : "justify-start"
+                    }`}
+                  >
                     <div
-                      key={message.id}
-                      className={`flex ${
+                      className={`flex items-start space-x-2 max-w-[80%] ${
                         message.sender === "user"
-                          ? "justify-end"
-                          : "justify-start"
+                          ? "flex-row-reverse space-x-reverse"
+                          : ""
                       }`}
                     >
                       <div
-                        className={`flex items-start space-x-2 max-w-[80%] ${
+                        className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${
                           message.sender === "user"
-                            ? "flex-row-reverse space-x-reverse"
-                            : ""
+                            ? "bg-primary text-primary-foreground"
+                            : "bg-muted text-muted-foreground"
                         }`}
                       >
-                        <div
-                          className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${
-                            message.sender === "user"
-                              ? "bg-primary text-primary-foreground"
-                              : "bg-muted text-muted-foreground"
-                          }`}
-                        >
-                          {message.sender === "user" ? (
-                            <User className="h-3 w-3" />
-                          ) : (
-                            <Bot className="h-3 w-3" />
-                          )}
-                        </div>
-                        <div
-                          className={`rounded-lg px-3 py-2 text-sm shadow-sm ${
-                            message.sender === "user"
-                              ? "bg-primary text-primary-foreground"
-                              : "bg-muted text-foreground"
-                          }`}
-                        >
-                          <p>{message.text}</p>
-                          <span className="text-[10px] opacity-70 block mt-1">
-                            {message.timestamp.toLocaleTimeString([], {
-                              hour: "2-digit",
-                              minute: "2-digit",
-                            })}
-                          </span>
-                        </div>
+                        {message.sender === "user" ? (
+                          <User className="h-3 w-3" />
+                        ) : (
+                          <Bot className="h-3 w-3" />
+                        )}
+                      </div>
+                      <div
+                        className={`rounded-lg px-3 py-2 text-sm shadow-sm ${
+                          message.sender === "user"
+                            ? "bg-primary text-primary-foreground"
+                            : "bg-muted text-foreground"
+                        }`}
+                      >
+                        <p>{message.text}</p>
+                        <span className="text-[10px] opacity-70 block mt-1">
+                          {message.timestamp.toLocaleTimeString([], {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </span>
                       </div>
                     </div>
-                  ))}
-                  {isTyping && (
-                    <div className="flex justify-start">
-                      <div className="rounded-lg px-3 py-2 text-sm bg-muted text-foreground animate-pulse">
-                        Bot is typing...
-                      </div>
-                    </div>
-                  )}
-                  <div ref={scrollRef}></div>
-                </div>
-              </ScrollArea>
-
-              {/* Quick Replies */}
-              <div className="flex gap-2 px-4 py-2 flex-wrap border-t border-border bg-muted/30">
-                {quickReplies.map((reply) => (
-                  <Button
-                    key={reply}
-                    size="sm"
-                    variant="secondary"
-                    onClick={() => {
-                      setInputMessage(reply);
-                      handleSendMessage();
-                    }}
-                  >
-                    {reply}
-                  </Button>
+                  </div>
                 ))}
+                {isTyping && (
+                  <div className="flex justify-start">
+                    <div className="rounded-lg px-3 py-2 text-sm bg-muted text-foreground animate-pulse">
+                      Bot is typing...
+                    </div>
+                  </div>
+                )}
+                <div ref={scrollRef}></div>
               </div>
+            </div>
 
-              {/* Input Field */}
-              <div className="p-3 border-t border-border">
-                <div className="flex space-x-2">
-                  <Input
-                    placeholder="Ask me anything..."
-                    value={inputMessage}
-                    onChange={(e) => setInputMessage(e.target.value)}
-                    onKeyPress={handleKeyPress}
-                    className="flex-1"
-                  />
-                  <Button
-                    onClick={handleSendMessage}
-                    size="sm"
-                    className="professional-button"
-                  >
-                    <Send className="h-4 w-4" />
-                  </Button>
-                </div>
+            {/* Quick Replies */}
+            <div className="flex gap-2 px-4 py-2 flex-wrap border-t border-border bg-muted/30">
+              {quickReplies.map((reply) => (
+                <Button
+                  key={reply}
+                  size="sm"
+                  variant="secondary"
+                  onClick={() => {
+                    setInputMessage(reply);
+                    handleSendMessage();
+                  }}
+                >
+                  {reply}
+                </Button>
+              ))}
+            </div>
+
+            {/* Input Field */}
+            <CardContent className="p-3 border-t border-border">
+              <div className="flex space-x-2">
+                <Input
+                  placeholder="Ask me anything..."
+                  value={inputMessage}
+                  onChange={(e) => setInputMessage(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  className="flex-1"
+                />
+                <Button
+                  onClick={handleSendMessage}
+                  size="sm"
+                  className="professional-button"
+                >
+                  <Send className="h-4 w-4" />
+                </Button>
               </div>
             </CardContent>
           </Card>
@@ -263,3 +261,4 @@ const ChatBot = () => {
 };
 
 export default ChatBot;
+
