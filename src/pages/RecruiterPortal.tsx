@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Briefcase, Users, TrendingUp, Search, Filter, MapPin, Clock, DollarSign, Plus } from "lucide-react";
+import { Briefcase, Users, TrendingUp, Search, Filter, MapPin, Clock, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -179,7 +179,6 @@ const RecruiterPortal = () => {
                                 {job.location}
                               </span>
                               <span className="flex items-center">
-                                <DollarSign className="h-4 w-4 mr-1" />
                                 {job.salary}
                               </span>
                             </div>
@@ -252,35 +251,4 @@ const RecruiterPortal = () => {
             </Card>
           </TabsContent>
 
-          <TabsContent value="analytics" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Recruitment Analytics</CardTitle>
-                <CardDescription>
-                  Track hiring metrics and optimize your recruitment process
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-12">
-                  <TrendingUp className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                  <p className="text-lg font-medium mb-2">Recruitment Insights</p>
-                  <p className="text-muted-foreground mb-6">
-                    Analytics dashboard requires data collection and storage
-                  </p>
-                  <Button className="professional-button">
-                    Setup Analytics
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
-
-      </main>
-      
-      <Footer />
-    </div>
-  );
-};
-
-export default RecruiterPortal;
+          <TabsContent value="analyt
