@@ -1,22 +1,55 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useAuth } from "@/hooks/useAuth";
+import { toast } from "@/hooks/use-toast";
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  
+  const { signIn, user } = useAuth();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // This will need Supabase integration for actual authentication
-    console.log("Sign in attempt with:", email);
+    setIsLoading(true);
+    setError("");
+    
+    const { error } = await signIn(email, password);
+    
+    if (error) {
+      setError(error.message);
+      toast({
+        title: "Sign In Failed",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Welcome back!",
+        description: "You have successfully signed in.",
+      });
+      navigate("/");
+    }
+    
+    setIsLoading(false);
   };
 
   return (
@@ -24,6 +57,13 @@ const SignIn = () => {
       <Header />
       
       <main className="max-w-md mx-auto px-4 py-16">
+        <div className="mb-6 p-4 bg-primary/10 rounded-lg border border-primary/20 text-center">
+          <h2 className="text-lg font-semibold text-primary mb-2">🎓 KIIT Exclusive</h2>
+          <p className="text-sm text-muted-foreground">
+            Currently available for KIIT alumni only. We're expanding to more colleges soon!
+          </p>
+        </div>
+        
         <Card className="border-2 shadow-lg">
           <CardHeader className="text-center">
             <CardTitle className="text-2xl font-display font-bold text-foreground">
@@ -35,6 +75,12 @@ const SignIn = () => {
           </CardHeader>
           
           <CardContent>
+            {error && (
+              <Alert className="mb-4" variant="destructive">
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
+            
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="email">Email Address</Label>
@@ -48,6 +94,7 @@ const SignIn = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     className="pl-10"
                     required
+                    disabled={isLoading}
                   />
                 </div>
               </div>
@@ -64,6 +111,7 @@ const SignIn = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     className="pl-10 pr-10"
                     required
+                    disabled={isLoading}
                   />
                   <Button
                     type="button"
@@ -71,14 +119,15 @@ const SignIn = () => {
                     size="sm"
                     className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
                     onClick={() => setShowPassword(!showPassword)}
+                    disabled={isLoading}
                   >
                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </Button>
                 </div>
               </div>
               
-              <Button type="submit" className="w-full professional-button">
-                Sign In
+              <Button type="submit" className="w-full professional-button" disabled={isLoading}>
+                {isLoading ? "Signing In..." : "Sign In"}
               </Button>
             </form>
             
@@ -100,12 +149,6 @@ const SignIn = () => {
             </div>
           </CardContent>
         </Card>
-        
-        <div className="mt-8 p-4 bg-muted/30 rounded-lg text-center">
-          <p className="text-sm text-muted-foreground">
-            <strong>Note:</strong> Full authentication functionality requires Supabase integration.
-          </p>
-        </div>
       </main>
       
       <Footer />

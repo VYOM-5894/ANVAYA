@@ -1,16 +1,32 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, User, Users, Calendar, Heart } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Menu, X, User, Users, Calendar, Heart, LogOut, Briefcase, Shield } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import { toast } from "@/hooks/use-toast";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
 
   const navigationItems = [
     { label: "Directory", href: "/directory", icon: Users },
     { label: "Events", href: "/events", icon: Calendar },
     { label: "Give Back", href: "/donate", icon: Heart },
+    { label: "Recruiter Portal", href: "/recruiter", icon: Briefcase },
+    { label: "Admin Portal", href: "/admin", icon: Shield },
   ];
+
+  const handleSignOut = async () => {
+    const { error } = await signOut();
+    if (!error) {
+      toast({
+        title: "Signed out successfully",
+        description: "You have been logged out.",
+      });
+    }
+  };
 
   return (
     <header className="bg-card border-b border-border sticky top-0 z-50 backdrop-blur-sm">
@@ -18,9 +34,9 @@ const Header = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <h1 className="text-2xl md:text-3xl font-display font-extrabold tracking-wide text-primary">
-              ANVAYA
-            </h1>
+            <Link to="/" className="text-2xl md:text-3xl font-display font-extrabold tracking-wide text-primary">
+              KIIT Alumni Connect
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
@@ -39,15 +55,34 @@ const Header = () => {
 
           {/* Desktop Auth Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link to="/signin">
-              <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
-                <User className="h-4 w-4 mr-2" />
-                Sign In
-              </Button>
-            </Link>
-            <Link to="/register">
-              <Button className="professional-button">Register</Button>
-            </Link>
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
+                    <User className="h-4 w-4 mr-2" />
+                    Profile
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuItem onClick={handleSignOut}>
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <>
+                <Link to="/signin">
+                  <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
+                    <User className="h-4 w-4 mr-2" />
+                    Sign In
+                  </Button>
+                </Link>
+                <Link to="/register">
+                  <Button className="professional-button">Join Network</Button>
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -78,17 +113,26 @@ const Header = () => {
               </Link>
             ))}
             <div className="flex flex-col space-y-2 pt-4 border-t border-border">
-              <Link to="/signin" onClick={() => setIsMenuOpen(false)}>
-                <Button variant="ghost" className="justify-start w-full">
-                  <User className="h-4 w-4 mr-2" />
-                  Sign In
+              {user ? (
+                <Button variant="ghost" className="justify-start w-full" onClick={handleSignOut}>
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Sign Out
                 </Button>
-              </Link>
-              <Link to="/register" onClick={() => setIsMenuOpen(false)}>
-                <Button className="professional-button justify-start w-full">
-                  Register
-                </Button>
-              </Link>
+              ) : (
+                <>
+                  <Link to="/signin" onClick={() => setIsMenuOpen(false)}>
+                    <Button variant="ghost" className="justify-start w-full">
+                      <User className="h-4 w-4 mr-2" />
+                      Sign In
+                    </Button>
+                  </Link>
+                  <Link to="/register" onClick={() => setIsMenuOpen(false)}>
+                    <Button className="professional-button justify-start w-full">
+                      Register
+                    </Button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         )}
@@ -98,4 +142,3 @@ const Header = () => {
 };
 
 export default Header;
-
