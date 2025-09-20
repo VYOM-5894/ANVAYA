@@ -251,4 +251,36 @@ const RecruiterPortal = () => {
             </Card>
           </TabsContent>
 
-          <TabsContent value="analyt
+          <TabsContent value="analytics" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Recruitment Analytics</CardTitle>
+                <CardDescription>
+                  Track hiring metrics and optimize your recruitment process
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-12">
+                  <TrendingUp className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                  <p className="text-lg font-medium mb-2">Recruitment Insights</p>
+                  <p className="text-muted-foreground mb-6">
+                    Analytics dashboard requires data collection and storage
+                  </p>
+                  <Button className="professional-button">
+                    Setup Analytics
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
+
+      </main>
+      
+      <Footer />
+    </div>
+  );
+};
+
+export default RecruiterPortal;
+
