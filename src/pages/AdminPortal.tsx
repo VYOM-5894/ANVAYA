@@ -225,12 +225,6 @@ const AdminPortal = () => {
           </TabsContent>
         </Tabs>
 
-        <div className="mt-8 p-6 bg-muted/30 rounded-lg">
-          <h3 className="font-semibold mb-2">Backend Integration Required</h3>
-          <p className="text-muted-foreground">
-            Full admin functionality (user management, event creation, content management) requires Supabase integration for authentication, database operations, and secure admin access.
-          </p>
-        </div>
       </main>
       
       <Footer />

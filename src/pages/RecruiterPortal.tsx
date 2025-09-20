@@ -276,12 +276,6 @@ const RecruiterPortal = () => {
           </TabsContent>
         </Tabs>
 
-        <div className="mt-8 p-6 bg-muted/30 rounded-lg">
-          <h3 className="font-semibold mb-2">Full Functionality Requires Integration</h3>
-          <p className="text-muted-foreground">
-            Complete recruiter portal functionality (job management, candidate search, application tracking) requires Supabase integration for secure data storage and user management.
-          </p>
-        </div>
       </main>
       
       <Footer />
