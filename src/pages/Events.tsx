@@ -101,10 +101,10 @@ const Events = () => {
       event.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
       event.description.toLowerCase().includes(searchTerm.toLowerCase());
     
-    const matchesType = selectedType === "" || event.eventType === selectedType;
+    const matchesType = selectedType === "" || selectedType === "all-types" || event.eventType === selectedType;
     
     const eventMonth = new Date(event.date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-    const matchesMonth = selectedMonth === "" || eventMonth === selectedMonth;
+    const matchesMonth = selectedMonth === "" || selectedMonth === "all-months" || eventMonth === selectedMonth;
     
     return matchesSearch && matchesType && matchesMonth;
   });
@@ -156,7 +156,7 @@ const Events = () => {
                 <SelectValue placeholder="Event Type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Types</SelectItem>
+                <SelectItem value="all-types">All Types</SelectItem>
                 {eventTypes.map(type => (
                   <SelectItem key={type} value={type}>
                     {type.charAt(0).toUpperCase() + type.slice(1)}
@@ -170,7 +170,7 @@ const Events = () => {
                 <SelectValue placeholder="Month" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Months</SelectItem>
+                <SelectItem value="all-months">All Months</SelectItem>
                 {months.map(month => (
                   <SelectItem key={month} value={month}>{month}</SelectItem>
                 ))}
@@ -179,8 +179,8 @@ const Events = () => {
 
             <Button variant="outline" onClick={() => {
               setSearchTerm("");
-              setSelectedType("");
-              setSelectedMonth("");
+              setSelectedType("all-types");
+              setSelectedMonth("all-months");
             }}>
               <Filter className="h-4 w-4 mr-2" />
               Clear
@@ -214,8 +214,8 @@ const Events = () => {
                 </p>
                 <Button onClick={() => {
                   setSearchTerm("");
-                  setSelectedType("");
-                  setSelectedMonth("");
+                  setSelectedType("all-types");
+                  setSelectedMonth("all-months");
                 }}>
                   Clear Filters
                 </Button>
@@ -238,8 +238,8 @@ const Events = () => {
                 </p>
                 <Button onClick={() => {
                   setSearchTerm("");
-                  setSelectedType("");
-                  setSelectedMonth("");
+                  setSelectedType("all-types");
+                  setSelectedMonth("all-months");
                 }}>
                   Clear Filters
                 </Button>

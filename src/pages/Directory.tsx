@@ -39,8 +39,8 @@ const Directory = () => {
       alumni.position.toLowerCase().includes(searchTerm.toLowerCase()) ||
       alumni.location.toLowerCase().includes(searchTerm.toLowerCase());
     
-    const matchesYear = selectedYear === "" || alumni.graduationYear === selectedYear;
-    const matchesDept = selectedDepartment === "" || alumni.degree === selectedDepartment;
+    const matchesYear = selectedYear === "" || selectedYear === "all-years" || alumni.graduationYear === selectedYear;
+    const matchesDept = selectedDepartment === "" || selectedDepartment === "all-departments" || alumni.degree === selectedDepartment;
     
     return matchesSearch && matchesYear && matchesDept;
   });
@@ -80,7 +80,7 @@ const Directory = () => {
                 <SelectValue placeholder="Graduation Year" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Years</SelectItem>
+                <SelectItem value="all-years">All Years</SelectItem>
                 {graduationYears.map(year => (
                   <SelectItem key={year} value={year}>{year}</SelectItem>
                 ))}
@@ -92,7 +92,7 @@ const Directory = () => {
                 <SelectValue placeholder="Department" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Departments</SelectItem>
+                <SelectItem value="all-departments">All Departments</SelectItem>
                 {departments.map(dept => (
                   <SelectItem key={dept} value={dept}>{dept}</SelectItem>
                 ))}
@@ -101,8 +101,8 @@ const Directory = () => {
 
             <Button variant="outline" onClick={() => {
               setSearchTerm("");
-              setSelectedYear("");
-              setSelectedDepartment("");
+              setSelectedYear("all-years");
+              setSelectedDepartment("all-departments");
             }}>
               <Filter className="h-4 w-4 mr-2" />
               Clear
@@ -189,8 +189,8 @@ const Directory = () => {
             </p>
             <Button onClick={() => {
               setSearchTerm("");
-              setSelectedYear("");
-              setSelectedDepartment("");
+              setSelectedYear("all-years");
+              setSelectedDepartment("all-departments");
             }}>
               Clear All Filters
             </Button>
