@@ -35,7 +35,7 @@ const Header = () => {
           {/* Logo */}
           <div className="flex items-center">
             <Link to="/" className="text-2xl md:text-3xl font-display font-extrabold tracking-wide text-primary">
-              KIIT Alumni Connect
+              ANVAYA
             </Link>
           </div>
 
